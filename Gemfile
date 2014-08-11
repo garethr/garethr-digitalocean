@@ -15,4 +15,5 @@ group :development do
   gem 'puppet-blacksmith'
   gem 'guard-rake'
   gem 'rubocop', require: false
+  gem 'pry'
 end

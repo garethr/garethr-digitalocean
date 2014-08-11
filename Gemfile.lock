@@ -151,6 +151,7 @@ PLATFORMS
 DEPENDENCIES
   barge
   guard-rake
+  pry
   puppet (~> 3.6.0)
   puppet-blacksmith
   puppetlabs_spec_helper
