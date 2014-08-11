@@ -5,6 +5,7 @@ provider_class = Puppet::Type.type(:droplet).provider(:v2)
 describe provider_class do
 
   before(:each) do
+    ENV['DIGITALOCEAN_ACCESS_TOKEN'] = 'random'
     @resource = Puppet::Type.type(:droplet).new(
       name: 'rod',
       region: 'lon1',
@@ -35,8 +36,7 @@ describe provider_class do
   context 'create' do
     it 'should send a request to the digitalocean API to create droplet' do
       stub_request(:post, 'https://api.digitalocean.com/v2/droplets')
-        .with(body: '{"name":"rod","region":"lon1","size":"512mb",
-          "image":123456}')
+        .with(body: '{"name":"rod","region":"lon1","size":"512mb","image":123456}')
       @provider.create
     end
   end
