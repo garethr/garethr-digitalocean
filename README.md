@@ -1,11 +1,9 @@
 Puppet module for managing droplets on
-[DigitalOcean](https://www.digitalocean.com).
+[DigitalOcean](https://www.digitalocean.com/?refcode=69ef0beac642).
 
 Under the hood this module uses [Barge](https://github.com/boats/barge)
-and the [V2 API](https://developers.digitalocean.com/v2).
-
-This module is also available on the [Puppet
-Forge](https://forge.puppetlabs.com/garethr/digitalocean)
+and the [V2 API](https://developers.digitalocean.com/v2). This module is also available on the [Puppet
+Forge](https://forge.puppetlabs.com/garethr/digitalocean).
 
 [![Build
 Status](https://secure.travis-ci.org/garethr/garethr-digitalocean.png)](http://travis-ci.org/garethr/garethr-digitalocean)
@@ -27,8 +25,9 @@ droplet { ['test-digitalocean', 'test-digitalocean-1']:
 Note that for this to work you will need an access token for the V2 API
 and to put that in an environment variable like so:
 
-    export DIGITALOCEAN_ACCESS_TOKEN=yourtokenhere
-
+```bash
+export DIGITALOCEAN_ACCESS_TOKEN=yourtokenhere
+```
 
 ## Limitations
 
