@@ -1,7 +1,6 @@
 require 'barge'
 
 class Puppet::Provider::Droplet < Puppet::Provider
-
   def initialize(*args)
     @client = Barge::Client.new(access_token: ENV['DIGITALOCEAN_ACCESS_TOKEN'])
     super(*args)
@@ -13,7 +12,7 @@ class Puppet::Provider::Droplet < Puppet::Provider
   end
 
   def create
-    Puppet.info("Creating new droplet")
+    Puppet.info('Creating new droplet')
     response = @client.droplet.create(
       name: resource[:name],
       region: resource[:region],
@@ -22,7 +21,7 @@ class Puppet::Provider::Droplet < Puppet::Provider
     if response.success?
       Puppet.info("Created new droplet called #{resource[:name]}")
     else
-      Puppet.error("Failed to create droplet")
+      Puppet.error('Failed to create droplet')
     end
   end
 
@@ -31,15 +30,14 @@ class Puppet::Provider::Droplet < Puppet::Provider
     droplet = _id_from_name resource[:name]
     if droplet
       response = @client.droplet.destroy(droplet.id)
-      Puppet.error("Failed to destroy droplet") unless response.success?
+      Puppet.error('Failed to destroy droplet') unless response.success?
     end
   end
 
   private
-    def _id_from_name name
-      @client.droplet.all.droplets.find { |droplet| droplet.name == name }
-    end
-
+  def _id_from_name(name)
+    @client.droplet.all.droplets.find { |droplet| droplet.name == name }
+  end
 end
 
 Puppet::Type.type(:droplet).provide(:v2,

@@ -1,3 +1,3 @@
 require 'puppet/util/feature'
 
-Puppet.features.add(:barge, :libs => "barge")
+Puppet.features.add(:barge, libs: 'barge')

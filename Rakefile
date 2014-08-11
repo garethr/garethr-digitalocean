@@ -6,5 +6,4 @@ begin
 rescue LoadError
 end
 
-
 RuboCop::RakeTask.new
