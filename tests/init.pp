@@ -12,7 +12,7 @@
 
 droplet { ['test-digitalocean', 'test-digitalocean-1']:
   ensure => present,
-  region => 'lon1',
+  region => 'sfo1',
   size   => '512mb',
   image  => 5141286,
 }
