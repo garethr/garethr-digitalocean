@@ -23,7 +23,7 @@ describe provider_class do
     end
 
     it 'should expose backups? as true' do
-      @resource.backups?.should be true
+      @resource['backups'].should be true
     end
 
     it 'should default private_networking and ipv6 to false' do
@@ -66,16 +66,18 @@ describe provider_class do
   end
 
   context 'with non-array ssh_keys' do
-    it 'should not create the resource' do
-      expect {
-        @resource = Puppet::Type.type(:droplet).new(
-          name: 'freddy',
-          region: 'lon1',
-          size: '512mb',
-          image: 123456,
-          ssh_keys: '1'
-        )
-      }.to raise_error
+    it 'should be coerced to array' do
+      @resource = Puppet::Type.type(:droplet).new(
+        name: 'freddy',
+        region: 'lon1',
+        size: '512mb',
+        image: 123456,
+        ssh_keys: 1,
+      )
+      @provider = provider_class.new(@resource)
+        stub_request(:post, 'https://api.digitalocean.com/v2/droplets')
+          .with(body: '{"name":"freddy","region":"lon1","size":"512mb","image":123456,"ssh_keys":[1],"backups":false,"ipv6":false,"private_networking":false}')
+      @provider.create
     end
   end
 

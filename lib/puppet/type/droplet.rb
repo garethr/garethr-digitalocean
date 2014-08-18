@@ -13,7 +13,7 @@ Puppet::Type.newtype(:droplet) do
     end
   end
 
-  newparam(:region) do
+  newproperty(:region) do
     desc 'the region in which the droplet will exist'
     validate do |value|
       fail Puppet::Error, 'Should not contains spaces' if value =~ /\s/
@@ -21,7 +21,7 @@ Puppet::Type.newtype(:droplet) do
     end
   end
 
-  newparam(:size) do
+  newproperty(:size) do
     desc 'the size of the droplet'
     validate do |value|
       fail Puppet::Error, 'Should not contains spaces' if value =~ /\s/
@@ -29,7 +29,7 @@ Puppet::Type.newtype(:droplet) do
     end
   end
 
-  newparam(:image) do
+  newproperty(:image) do
     desc 'the image to use for the droplet'
     validate do |value|
       fail Puppet::Error, 'Should not contains spaces' if value =~ /\s/
@@ -37,26 +37,22 @@ Puppet::Type.newtype(:droplet) do
     end
   end
 
-  newparam(:ssh_keys) do
+  newproperty(:ssh_keys, :array_matching => :all) do
+    defaultto []
     desc 'the ids of the ssh keys you want to embed in the droplet'
-    validate do |value|
-      unless value.kind_of?(Array)
-        fail Puppet::Error, 'if specified, ssh_keys needs to be an array'
-      end
-    end
   end
 
-  newparam(:backups, :boolean => true, :parent => Puppet::Parameter::Boolean) do
+  newproperty(:backups, :boolean => true, :parent => Puppet::Parameter::Boolean) do
     defaultto :false
     desc 'whether or not backups are enabled'
   end
 
-  newparam(:ipv6, :boolean => true, :parent => Puppet::Parameter::Boolean) do
+  newproperty(:ipv6, :boolean => true, :parent => Puppet::Parameter::Boolean) do
     defaultto :false
     desc 'whether ipv6 is enabled'
   end
 
-  newparam(:private_networking, :boolean => true, :parent => Puppet::Parameter::Boolean) do
+  newproperty(:private_networking, :boolean => true, :parent => Puppet::Parameter::Boolean) do
     defaultto :false
     desc 'whether private networking is enabled'
   end
