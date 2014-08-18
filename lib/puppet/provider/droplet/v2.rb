@@ -11,7 +11,7 @@ module Puppet
 
       def exists?
         Puppet.debug("Checking if droplet #{resource[:name]} exists")
-        _id_from_name(resource[:name]) ? true : false
+        _droplet_from_name(resource[:name]) ? true : false
       end
 
       def create
@@ -33,7 +33,7 @@ module Puppet
 
       def destroy
         Puppet.info("Destroying droplet #{resource[:name]}")
-        droplet = _id_from_name resource[:name]
+        droplet = _droplet_from_name resource[:name]
         if droplet
           response = @client.droplet.destroy(droplet.id)
           Puppet.error('Failed to destroy droplet') unless response.success?
@@ -42,7 +42,7 @@ module Puppet
 
       private
 
-      def _id_from_name(name)
+      def _droplet_from_name(name)
         @client.droplet.all.droplets.find { |droplet| droplet.name == name }
       end
     end

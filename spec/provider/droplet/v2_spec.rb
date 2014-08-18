@@ -57,7 +57,7 @@ describe provider_class do
       it 'should send a request to the digital ocean API to destroy droplet' do
         droplet = mock('object')
         droplet.expects(:id).returns(1234)
-        @provider.stubs(:_id_from_name).returns(droplet)
+        @provider.stubs(:_droplet_from_name).returns(droplet)
         stub_request(:delete, 'https://api.digitalocean.com/v2/droplets/1234')
         @provider.destroy
       end
