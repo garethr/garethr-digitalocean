@@ -5,13 +5,7 @@ describe droplet do
   let :params do
     [
       :name,
-      :provider
-    ]
-  end
-
-  let :properties do
-    [
-      :ensure,
+      :provider,
       :region,
       :size,
       :image,
@@ -19,6 +13,12 @@ describe droplet do
       :backups,
       :ipv6,
       :private_networking
+    ]
+  end
+
+  let :properties do
+    [
+      :ensure
     ]
   end
 
