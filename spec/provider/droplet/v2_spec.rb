@@ -67,7 +67,6 @@ describe provider_class do
 
   context 'with non-array ssh_keys' do
     it 'should be coerced to array' do
-      skip "not currently working"
       @resource = Puppet::Type.type(:droplet).new(
         name: 'freddy',
         region: 'lon1',

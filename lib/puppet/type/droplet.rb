@@ -40,6 +40,9 @@ Puppet::Type.newtype(:droplet) do
   newparam(:ssh_keys, :array_matching => :all) do
     defaultto []
     desc 'the ids of the ssh keys you want to embed in the droplet'
+    munge do |value|
+      [*value]
+    end
   end
 
   newparam(:backups, :boolean => true, :parent => Puppet::Parameter::Boolean) do
