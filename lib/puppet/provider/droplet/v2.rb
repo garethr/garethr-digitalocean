@@ -20,6 +20,7 @@ module Puppet
           region: resource[:region],
           size: resource[:size],
           image: resource[:image],
+          ssh_keys: resource[:ssh_keys] || [],
           backups: resource[:backups],
           ipv6: resource[:ipv6],
           private_networking: resource[:private_networking])

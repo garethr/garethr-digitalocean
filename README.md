@@ -30,6 +30,7 @@ droplet { ['test-digitalocean', 'test-digitalocean-1']:
   region             => 'lon1',
   size               => '512mb',
   image              => 5141286,
+  ssh_keys           => [12345], # note this is an array
   backups            => false,
   ipv6               => false,
   private_networking => false,

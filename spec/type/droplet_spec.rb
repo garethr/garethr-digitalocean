@@ -8,6 +8,7 @@ describe droplet do
       :region,
       :size,
       :image,
+      :ssh_keys,
       :backups,
       :ipv6,
       :private_networking

@@ -37,6 +37,15 @@ Puppet::Type.newtype(:droplet) do
     end
   end
 
+  newparam(:ssh_keys) do
+    desc 'the ids of the ssh keys you want to embed in the droplet'
+    validate do |value|
+      unless value.kind_of?(Array)
+        fail Puppet::Error, 'if specified, ssh_keys needs to be an array'
+      end
+    end
+  end
+
   newparam(:backups, :boolean => true, :parent => Puppet::Parameter::Boolean) do
     defaultto :false
     desc 'whether or not backups are enabled'
