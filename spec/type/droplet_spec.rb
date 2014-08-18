@@ -7,7 +7,10 @@ describe droplet do
       :name,
       :region,
       :size,
-      :image
+      :image,
+      :backups,
+      :ipv6,
+      :private_networking
     ]
   end
 

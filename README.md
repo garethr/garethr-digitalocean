@@ -22,6 +22,20 @@ droplet { ['test-digitalocean', 'test-digitalocean-1']:
 }
 ```
 
+The full current list of parameters is:
+
+```puppet
+droplet { ['test-digitalocean', 'test-digitalocean-1']:
+  ensure             => present,
+  region             => 'lon1',
+  size               => '512mb',
+  image              => 5141286,
+  backups            => false,
+  ipv6               => false,
+  private_networking => false,
+}
+```
+
 Note that for this to work you will need an access token for the V2 API
 and to put that in an environment variable like so:
 
@@ -31,5 +45,4 @@ export DIGITALOCEAN_ACCESS_TOKEN=yourtokenhere
 
 ## Limitations
 
-Currently the module only exposes `region`, `size`, `image` and `name`
-and only manages the `droplet` resource.
+Currently the module only manages the `droplet` resource.

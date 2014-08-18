@@ -19,7 +19,10 @@ module Puppet
           name: resource[:name],
           region: resource[:region],
           size: resource[:size],
-          image: resource[:image])
+          image: resource[:image],
+          backups: resource[:backups],
+          ipv6: resource[:ipv6],
+          private_networking: resource[:private_networking])
         if response.success?
           Puppet.info("Created new droplet called #{resource[:name]}")
         else

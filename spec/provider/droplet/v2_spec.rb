@@ -10,13 +10,23 @@ describe provider_class do
       name: 'rod',
       region: 'lon1',
       size: '512mb',
-      image: 123_456
+      image: 123456,
+      backups: true
     )
     @provider = provider_class.new(@resource)
   end
 
   it 'should be an instance of the ProviderV2' do
     @provider.should be_an_instance_of Puppet::Type::Droplet::ProviderV2
+  end
+
+  it 'should expose backups? as true' do
+    @resource.backups?.should be true
+  end
+
+  it 'should default private_networking and ipv6 to false' do
+    @resource['ipv6'].should be false
+    @resource['private_networking'].should be false
   end
 
   context 'exists?' do
@@ -36,7 +46,7 @@ describe provider_class do
   context 'create' do
     it 'should send a request to the digitalocean API to create droplet' do
       stub_request(:post, 'https://api.digitalocean.com/v2/droplets')
-        .with(body: '{"name":"rod","region":"lon1","size":"512mb","image":123456}')
+        .with(body: '{"name":"rod","region":"lon1","size":"512mb","image":123456,"backups":true,"ipv6":false,"private_networking":false}')
       @provider.create
     end
   end

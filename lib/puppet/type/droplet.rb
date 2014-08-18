@@ -1,3 +1,5 @@
+require 'puppet/parameter/boolean'
+
 Puppet::Type.newtype(:droplet) do
   @doc = 'type representing a digitalocean droplet'
 
@@ -5,6 +7,10 @@ Puppet::Type.newtype(:droplet) do
 
   newparam(:name, namevar: true) do
     desc 'the name of the droplet'
+    validate do |value|
+      fail Puppet::Error, 'Should not contains spaces' if value =~ /\s/
+      fail Puppet::Error, 'Empty values are not allowed' if value == ''
+    end
   end
 
   newparam(:region) do
@@ -29,6 +35,21 @@ Puppet::Type.newtype(:droplet) do
       fail Puppet::Error, 'Should not contains spaces' if value =~ /\s/
       fail Puppet::Error, 'Empty values are not allowed' if value == ''
     end
+  end
+
+  newparam(:backups, :boolean => true, :parent => Puppet::Parameter::Boolean) do
+    defaultto :false
+    desc 'whether or not backups are enabled'
+  end
+
+  newparam(:ipv6, :boolean => true, :parent => Puppet::Parameter::Boolean) do
+    defaultto :false
+    desc 'whether ipv6 is enabled'
+  end
+
+  newparam(:private_networking, :boolean => true, :parent => Puppet::Parameter::Boolean) do
+    defaultto :false
+    desc 'whether private networking is enabled'
   end
 
 end
