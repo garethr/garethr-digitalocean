@@ -5,7 +5,8 @@ Under the hood this module uses [Barge](https://github.com/boats/barge)
 and the [V2 API](https://developers.digitalocean.com/v2). This module is also available on the [Puppet
 Forge](https://forge.puppetlabs.com/garethr/digitalocean).
 
-[![Build
+[![Puppet
+Forge](http://img.shields.io/puppetforge/v/garethr/digitalocean.svg)](https://forge.puppetlabs.com/garethr/digitalocean) [![Build
 Status](https://secure.travis-ci.org/garethr/garethr-digitalocean.png)](http://travis-ci.org/garethr/garethr-digitalocean)
 
 ## Usage
