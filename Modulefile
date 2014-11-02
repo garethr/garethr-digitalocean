@@ -1,5 +1,5 @@
 name          'garethr-digitalocean'
-version       '0.3.0'
+version       '0.3.1'
 source        'git://github.com/garethr/garethr-digitalocean'
 author        'Gareth Rushgrove'
 license       'Apache 2.0'
