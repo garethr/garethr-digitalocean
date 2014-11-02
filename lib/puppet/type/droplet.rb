@@ -13,7 +13,7 @@ Puppet::Type.newtype(:droplet) do
     end
   end
 
-  newparam(:region) do
+  newproperty(:region) do
     desc 'the region in which the droplet will exist'
     validate do |value|
       fail Puppet::Error, 'Should not contains spaces' if value =~ /\s/
@@ -29,12 +29,19 @@ Puppet::Type.newtype(:droplet) do
     end
   end
 
-  newparam(:image) do
+  newproperty(:image) do
     desc 'the image to use for the droplet'
     validate do |value|
       fail Puppet::Error, 'Should not contains spaces' if value =~ /\s/
       fail Puppet::Error, 'Empty values are not allowed' if value == ''
     end
+    def insync?(is)
+      is.to_i == should.to_i
+    end
+  end
+
+  newparam(:user_data) do
+    desc 'the user data script to run on startup'
   end
 
   newparam(:ssh_keys, :array_matching => :all) do

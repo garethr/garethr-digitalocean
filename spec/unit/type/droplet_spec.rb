@@ -6,9 +6,8 @@ describe droplet do
     [
       :name,
       :provider,
-      :region,
       :size,
-      :image,
+      :user_data,
       :ssh_keys,
       :backups,
       :ipv6,
@@ -18,19 +17,21 @@ describe droplet do
 
   let :properties do
     [
-      :ensure
+      :ensure,
+      :image,
+      :region,
     ]
   end
 
   it 'should have expected properties' do
     properties.each do |property|
-      droplet.properties.map { |p| p.name }.should be_include(property)
+      expect(droplet.properties.map(&:name)).to be_include(property)
     end
   end
 
   it 'should have expected parameters' do
     params.each do |param|
-      droplet.parameters.should be_include(param)
+      expect(droplet.parameters).to be_include(param)
     end
   end
 end

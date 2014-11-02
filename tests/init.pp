@@ -14,6 +14,6 @@ droplet { ['test-digitalocean', 'test-digitalocean-1']:
   ensure   => present,
   region   => 'sfo1',
   size     => '512mb',
-  image    => 5141286,
-  ssh_keys => [110420],
+  image    => 6918990,
+  ssh_keys => [433359],
 }
