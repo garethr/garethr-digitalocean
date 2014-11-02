@@ -44,6 +44,14 @@ Puppet::Type.newtype(:droplet) do
     desc 'the user data script to run on startup'
   end
 
+  newproperty(:private_address) do
+    desc 'The private IPv4 address'
+  end
+
+  newproperty(:public_address) do
+    desc 'The public IPv4 address'
+  end
+
   newparam(:ssh_keys, :array_matching => :all) do
     defaultto []
     desc 'the ids of the ssh keys you want to embed in the droplet'

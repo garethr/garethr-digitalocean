@@ -30,7 +30,9 @@ Puppet::Type.type(:droplet).provide(:v2) do
   end
 
   def self.droplet_to_hash(droplet)
-    {
+    private_addr = droplet.networks.v4.detect { |address| address.type == 'private' }
+    public_addr = droplet.networks.v4.detect { |address| address.type == 'public' }
+    config = {
       name: droplet.name,
       region: droplet.region.slug,
       size: droplet.size,
@@ -41,6 +43,11 @@ Puppet::Type.type(:droplet).provide(:v2) do
       private_networking: droplet.private_networking,
       ensure: :present,
     }
+
+    config[:private_address] = private_addr.ip_address if private_addr
+    config[:public_address] = public_addr.ip_address if public_addr
+
+    config
   end
 
   def exists?
