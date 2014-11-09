@@ -47,4 +47,5 @@ export DIGITALOCEAN_ACCESS_TOKEN=yourtokenhere
 
 ## Limitations
 
-Currently the module only manages the `droplet` resource.
+Currently the module only manages the `droplet` resource, with some
+limited experimental  suport for `domains`.
