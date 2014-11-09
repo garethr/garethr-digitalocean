@@ -44,11 +44,13 @@ Puppet::Type.type(:digitalocean_domain).provide(:v2) do
 
   def create
     response = @client.domain.create(
-      name: resource[:name],
-      ip_address: resource[:ip_address],
+      name: name,
+      ip_address: '127.0.0.1',
     )
-    if response.success?
-      Puppet.info("Created new domain called #{resource[:name]}")
+    record = @client.domain.records(name).domain_records.detect { |rec| rec.data == '127.0.0.1' }
+    delete_response = @client.domain.destroy_record(name, record.id)
+    if response.success? and delete_response.success?
+      Puppet.info("Created new domain called #{name}")
       @property_hash[:ensure] = :present
     else
       fail 'Failed to create domain'

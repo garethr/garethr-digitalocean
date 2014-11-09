@@ -10,16 +10,16 @@
 # http://docs.puppetlabs.com/guides/tests_smoke.html
 #
 
-digitalocean_domain { 'internal.example.com':
-  ip_address => '127.0.0.1',
+digitalocean_domain { 'morethanseven.directory':
+  ensure     => present,
 }
 
-droplet { ['test-digitalocean', 'test-digitalocean-1']:
+droplet { 'test.morethanseven.directory':
   ensure             => present,
   region             => 'lon1',
   size               => '512mb',
   image              => 6918990,
   ssh_keys           => [433359],
   private_networking => true,
-  domain             => 'internal.example.com',
+  private_domain     => 'morethanseven.directory',
 }

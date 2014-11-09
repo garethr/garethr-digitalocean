@@ -75,12 +75,12 @@ Puppet::Type.newtype(:droplet) do
     desc 'whether private networking is enabled'
   end
 
-  newparam(:domain) do
-    desc 'The digitalocean domain to attach to'
+  newparam(:private_domain) do
+    desc 'Create a DNS record on this domain for the private interface'
   end
 
   autorequire(:digitalocean_domain) do
-    self[:domain]
+    self[:private_domain]
   end
 
 end

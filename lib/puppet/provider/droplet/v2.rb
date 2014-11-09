@@ -57,7 +57,7 @@ Puppet::Type.type(:droplet).provide(:v2) do
 
   def create
     response = @client.droplet.create(
-      name: resource[:name],
+      name: name,
       region: resource[:region],
       size: resource[:size],
       image: resource[:image],
@@ -67,10 +67,10 @@ Puppet::Type.type(:droplet).provide(:v2) do
       ipv6: resource[:ipv6],
       private_networking: resource[:private_networking])
     if response.success?
-      Puppet.info("Created new droplet called #{resource[:name]}")
-
-      if resource[:domain]
-        Puppet.info("Created new domain record for droplet #{resource[:name]}.#{resource[:domain]}")
+      Puppet.info("Created new droplet called #{name}")
+      if resource[:private_domain]
+        dns_name = name.split('.').first
+        Puppet.info("Creating new domain record for droplet #{dns_name}.#{resource[:private_domain]}")
         slept = 0
         loop do
           sleep(1)
@@ -81,15 +81,14 @@ Puppet::Type.type(:droplet).provide(:v2) do
           @resp = @client.droplet.show(response.droplet.id)
           break if @resp.droplet.status == 'active'
         end
-        private_addr = @resp.droplet.networks.v4.detect { |address| address.type == 'private' }
+        address = @resp.droplet.networks.v4.detect { |address| address.type == 'private' }
         options = {
           type: 'A',
-          name: resource[:name],
-          data: private_addr.ip_address,
+          name: dns_name,
+          data: address.ip_address,
         }
-        @client.domain.create_record(resource[:domain], options)
+        @client.domain.create_record(resource[:private_domain], options)
       end
-
     else
       fail('Failed to create droplet')
     end

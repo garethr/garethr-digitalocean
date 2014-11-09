@@ -11,13 +11,6 @@ Puppet::Type.newtype(:digitalocean_domain) do
     end
   end
 
-  newparam(:ip_address) do
-    desc 'the ip address of the root of the domain'
-    validate do |value|
-      fail 'Empty values are not allowed' if value == ''
-    end
-  end
-
   newproperty(:zone_file) do
     desc 'the full DNS zone'
     validate do |value|
