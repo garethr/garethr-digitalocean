@@ -68,6 +68,28 @@ Puppet::Type.type(:droplet).provide(:v2) do
       private_networking: resource[:private_networking])
     if response.success?
       Puppet.info("Created new droplet called #{resource[:name]}")
+
+      if resource[:domain]
+        Puppet.info("Created new domain record for droplet #{resource[:name]}.#{resource[:domain]}")
+        slept = 0
+        loop do
+          sleep(1)
+          slept += 1
+          if slept > 120
+            fail 'Waited too long for droplet to become active'
+          end
+          @resp = @client.droplet.show(response.droplet.id)
+          break if @resp.droplet.status == 'active'
+        end
+        private_addr = @resp.droplet.networks.v4.detect { |address| address.type == 'private' }
+        options = {
+          type: 'A',
+          name: resource[:name],
+          data: private_addr.ip_address,
+        }
+        @client.domain.create_record(resource[:domain], options)
+      end
+
     else
       fail('Failed to create droplet')
     end

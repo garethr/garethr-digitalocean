@@ -10,10 +10,16 @@
 # http://docs.puppetlabs.com/guides/tests_smoke.html
 #
 
+digitalocean_domain { 'internal.example.com':
+  ip_address => '127.0.0.1',
+}
+
 droplet { ['test-digitalocean', 'test-digitalocean-1']:
-  ensure   => present,
-  region   => 'sfo1',
-  size     => '512mb',
-  image    => 6918990,
-  ssh_keys => [433359],
+  ensure             => present,
+  region             => 'lon1',
+  size               => '512mb',
+  image              => 6918990,
+  ssh_keys           => [433359],
+  private_networking => true,
+  domain             => 'internal.example.com',
 }

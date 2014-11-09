@@ -75,4 +75,12 @@ Puppet::Type.newtype(:droplet) do
     desc 'whether private networking is enabled'
   end
 
+  newparam(:domain) do
+    desc 'The digitalocean domain to attach to'
+  end
+
+  autorequire(:digitalocean_domain) do
+    self[:domain]
+  end
+
 end
