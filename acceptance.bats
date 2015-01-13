@@ -19,20 +19,18 @@
 @test "we can count the correct number of droplets" {
   run bash -c "tugboat droplets | wc -l | tr -d ' '"
   [ "$status" -eq 0 ]
-  [ "$output" -eq 2 ]
+  [ "$output" -eq 1 ]
 }
 
 @test "we can list hosts with tugboat" {
   run tugboat droplets
   [ "$status" -eq 0 ]
   [[ "$output" == *"test-digitalocean"* ]]
-  [[ "$output" == *"test-digitalocean-1"* ]]
 }
 
 @test "clean up all droplets" {
   sleep 60 # droplets can only be deleted a little after they are created
   run tugboat destroy -n test-digitalocean -c
-  run tugboat destroy -n test-digitalocean-1 -c
   [ "$status" -eq 0 ]
 }
 

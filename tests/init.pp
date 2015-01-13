@@ -10,16 +10,11 @@
 # http://docs.puppetlabs.com/guides/tests_smoke.html
 #
 
-digitalocean_domain { 'morethanseven.directory':
-  ensure     => present,
-}
-
-droplet { 'test.morethanseven.directory':
+droplet { 'test-digitalocean':
   ensure             => present,
   region             => 'lon1',
   size               => '512mb',
-  image              => 6918990,
+  image              => 9801950,
   ssh_keys           => [433359],
   private_networking => true,
-  private_domain     => 'morethanseven.directory',
 }
