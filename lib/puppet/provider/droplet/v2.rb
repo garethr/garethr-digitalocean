@@ -101,7 +101,7 @@ Puppet::Type.type(:droplet).provide(:v2) do
     Puppet.info("Destroying droplet #{name}")
     if droplet
       response = @client.droplet.destroy(droplet.id)
-      fail("Failed to destroy droplet #{name}") unless response.success?
+      fail("Failed to destroy droplet #{name}: #{response.message}") unless response.success?
       @property_hash[:ensure] = :absent
     end
   end

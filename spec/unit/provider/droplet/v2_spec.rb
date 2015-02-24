@@ -44,6 +44,13 @@ describe provider_class do
           .with(body: '{"name":"rod","region":"lon1","size":"512mb","image":123456,"user_data":null,"ssh_keys":[],"backups":"true","ipv6":"false","private_networking":"false"}')
         @provider.create
       end
+
+      it 'should show error on failure response' do
+        stub_request(:post, 'https://api.digitalocean.com/v2/droplets')
+          .with(body: '{"name":"rod","region":"lon1","size":"512mb","image":123456,"user_data":null,"ssh_keys":[],"backups":"true","ipv6":"false","private_networking":"false"}').
+             to_return(body: '{ "id": "unauthorized","message": "Unable to authenticate you."}', status: 401)
+        expect {@provider.create}.to raise_error(Puppet::Error,/Failed to create droplet rod: Unable to authenticate you./)
+      end
     end
 
     context 'destroy' do
@@ -53,6 +60,15 @@ describe provider_class do
         @provider.stubs(:_droplet_from_name).returns(droplet)
         stub_request(:delete, 'https://api.digitalocean.com/v2/droplets/1234')
         @provider.destroy
+      end
+
+      it 'should show error on failure response' do
+        droplet = mock('object')
+        droplet.expects(:id).returns(1234)
+        @provider.stubs(:_droplet_from_name).returns(droplet)
+        stub_request(:delete, 'https://api.digitalocean.com/v2/droplets/1234').
+          to_return(body: '{ "id": "unauthorized","message": "Unable to authenticate you."}', status: 401)
+        expect {@provider.destroy}.to raise_error(Puppet::Error,/Failed to destroy droplet rod: Unable to authenticate you./)
       end
     end
   end

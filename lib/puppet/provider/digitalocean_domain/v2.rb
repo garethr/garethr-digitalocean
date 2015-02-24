@@ -53,14 +53,14 @@ Puppet::Type.type(:digitalocean_domain).provide(:v2) do
       Puppet.info("Created new domain called #{name}")
       @property_hash[:ensure] = :present
     else
-      fail 'Failed to create domain'
+      fail "Failed to create domain: #{response.message}"
     end
   end
 
   def destroy
     Puppet.info("Destroying domain #{resource[:name]}")
     response = @client.domain.destroy(resource[:name])
-    fail('Failed to destroy domain') unless response.success?
+    fail("Failed to destroy domain: #{response.message}") unless response.success?
     @property_hash[:ensure] = :absent
   end
 end
