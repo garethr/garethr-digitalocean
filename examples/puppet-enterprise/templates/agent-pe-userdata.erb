@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+echo "<%= @pe_master_ip %>  <%= @pe_master_hostname %> master" >> /etc/hosts
+
+PE_MASTER='<%= @pe_master_hostname %>'
+
+PE_CERTNAME=$(curl -s http://169.254.169.254/metadata/v1/hostname)
+
+curl -sk https://$PE_MASTER:8140/packages/current/install.bash | /bin/bash -s agent:certname=$PE_CERTNAME
