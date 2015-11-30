@@ -14,7 +14,7 @@ droplet { 'test-digitalocean':
   ensure             => present,
   region             => 'lon1',
   size               => '512mb',
-  image              => 9801950,
+  image              => 14169855,
   ssh_keys           => [433359],
   private_networking => true,
 }
