@@ -1,20 +1,15 @@
 ---
 language: ruby
 bundler_args: --without development
+cache: bundler
 before_install: rm Gemfile.lock || true
+sudo: false
 rvm:
   - 1.9.3
-  - 2.0.0
   - 2.1.0
-script: bundle exec rake spec
+script: bundle exec rake test
 env:
-  - PUPPET_VERSION="~> 3.3.0"
-  - PUPPET_VERSION="~> 3.4.0"
-  - PUPPET_VERSION="~> 3.5.0"
-  - PUPPET_VERSION="~> 3.6.0"
-matrix:
-  exclude:
-  - rvm: 2.1.0
-    env: PUPPET_VERSION="~> 3.3.0"
-  - rvm: 2.1.0
-    env: PUPPET_VERSION="~> 3.4.0"
+env:
+  - PUPPET_GEM_VERSION="~> 3.8.0" FUTURE_PARSER=yes
+  - PUPPET_GEM_VERSION="~> 3.8.0"
+  - PUPPET_GEM_VERSION="~> 4.2.0"
