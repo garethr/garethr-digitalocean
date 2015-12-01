@@ -23,12 +23,12 @@ describe provider_class do
     end
 
     it 'should expose backups? as true' do
-      expect(@resource['backups']).to be true
+      expect(@resource['backups']).to eq 'true'
     end
 
     it 'should default private_networking and ipv6 to false' do
-      expect(@resource['ipv6']).to be false
-      expect(@resource['private_networking']).to be false
+      expect(@resource['ipv6']).to eq 'false'
+      expect(@resource['private_networking']).to eq 'false'
     end
 
     context 'exists?' do
@@ -43,7 +43,7 @@ describe provider_class do
     context 'create' do
       it 'should send a request to the digitalocean API to create droplet' do
         stub_request(:post, 'https://api.digitalocean.com/v2/droplets')
-          .with(body: '{"name":"rod","region":"lon1","size":"512mb","image":123456,"user_data":null,"ssh_keys":[],"backups":true,"ipv6":false,"private_networking":false}')
+          .with(body: '{"name":"rod","region":"lon1","size":"512mb","image":123456,"user_data":null,"ssh_keys":[],"backups":"true","ipv6":"false","private_networking":"false"}')
         @provider.create
       end
     end
@@ -71,7 +71,7 @@ describe provider_class do
       )
       @provider = provider_class.new(@resource)
         stub_request(:post, 'https://api.digitalocean.com/v2/droplets')
-          .with(body: '{"name":"freddy","region":"lon1","size":"512mb","image":123456,"user_data":null,"ssh_keys":[1],"backups":false,"ipv6":false,"private_networking":false}')
+          .with(body: '{"name":"freddy","region":"lon1","size":"512mb","image":123456,"user_data":null,"ssh_keys":[1],"backups":"false","ipv6":"false","private_networking":"false"}')
       @provider.create
     end
   end

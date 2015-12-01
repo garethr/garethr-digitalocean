@@ -1,86 +1,79 @@
-require 'puppet/parameter/boolean'
+require 'puppet_x/garethr/digitalocean/property/boolean'
+require 'puppet_x/garethr/digitalocean/property/read_only'
+require 'puppet_x/garethr/digitalocean/property/string'
 
 Puppet::Type.newtype(:droplet) do
-  @doc = 'type representing a digitalocean droplet'
+  @doc = 'Type representing a digitalocean droplet'
 
   ensurable
 
   newparam(:name, namevar: true) do
-    desc 'the name of the droplet'
+    desc 'The name of the droplet'
     validate do |value|
-      fail Puppet::Error, 'Should not contains spaces' if value =~ /\s/
-      fail Puppet::Error, 'Empty values are not allowed' if value == ''
+      fail 'Should not contains spaces' if value =~ /\s/
+      fail 'Empty values are not allowed' if value == ''
     end
   end
 
-  newproperty(:region) do
-    desc 'the region in which the droplet will exist'
-    validate do |value|
-      fail Puppet::Error, 'Should not contains spaces' if value =~ /\s/
-      fail Puppet::Error, 'Empty values are not allowed' if value == ''
-    end
+  newproperty(:region, :parent => PuppetX::Garethr::DigitalOcean::Property::String) do
+    desc 'The region in which the droplet will exist'
   end
 
-  newparam(:size) do
-    desc 'the size of the droplet'
-    validate do |value|
-      fail Puppet::Error, 'Should not contains spaces' if value =~ /\s/
-      fail Puppet::Error, 'Empty values are not allowed' if value == ''
-    end
+  newproperty(:size, :parent => PuppetX::Garethr::DigitalOcean::Property::String) do
+    desc 'The size of the droplet'
   end
 
-  newproperty(:image) do
-    desc 'the image to use for the droplet'
-    validate do |value|
-      fail Puppet::Error, 'Should not contains spaces' if value =~ /\s/
-      fail Puppet::Error, 'Empty values are not allowed' if value == ''
-    end
+  newproperty(:image, :parent => PuppetX::Garethr::DigitalOcean::Property::String) do
+    desc 'The image to use for the droplet'
     def insync?(is)
       is.to_i == should.to_i
     end
   end
 
   newparam(:user_data) do
-    desc 'the user data script to run on startup'
+    desc 'The user data script to run on startup'
   end
 
-  newproperty(:private_address) do
+  newproperty(:private_address, :parent => PuppetX::Garethr::DigitalOcean::Property::ReadOnly) do
     desc 'The private IPv4 address'
   end
 
-  newproperty(:public_address) do
+  newproperty(:public_address, :parent => PuppetX::Garethr::DigitalOcean::Property::ReadOnly) do
     desc 'The public IPv4 address'
+  end
+
+  newproperty(:image_slug, :parent => PuppetX::Garethr::DigitalOcean::Property::ReadOnly) do
+    desc 'The human friendly name for the image'
+  end
+
+  newproperty(:public_address_ipv6, :parent => PuppetX::Garethr::DigitalOcean::Property::ReadOnly) do
+    desc 'The public IPv6 address'
+  end
+
+  newproperty(:price_monthly, :parent => PuppetX::Garethr::DigitalOcean::Property::ReadOnly) do
+    desc 'The current monthly cost of the droplet'
   end
 
   newparam(:ssh_keys, :array_matching => :all) do
     defaultto []
-    desc 'the ids of the ssh keys you want to embed in the droplet'
+    desc 'The ids of the ssh keys you want to embed in the droplet'
     munge do |value|
       [*value]
     end
   end
 
-  newparam(:backups, :boolean => true, :parent => Puppet::Parameter::Boolean) do
+  newproperty(:backups, :parent => PuppetX::Garethr::DigitalOcean::Property::Boolean) do
+    desc 'Whether or not backups are enabled'
     defaultto :false
-    desc 'whether or not backups are enabled'
   end
 
-  newparam(:ipv6, :boolean => true, :parent => Puppet::Parameter::Boolean) do
+  newproperty(:ipv6, :parent => PuppetX::Garethr::DigitalOcean::Property::Boolean) do
+    desc 'Whether ipv6 is enabled'
     defaultto :false
-    desc 'whether ipv6 is enabled'
   end
 
-  newparam(:private_networking, :boolean => true, :parent => Puppet::Parameter::Boolean) do
+  newproperty(:private_networking, :parent => PuppetX::Garethr::DigitalOcean::Property::Boolean) do
+    desc 'Whether private networking is enabled'
     defaultto :false
-    desc 'whether private networking is enabled'
   end
-
-  newparam(:private_domain) do
-    desc 'Create a DNS record on this domain for the private interface'
-  end
-
-  autorequire(:digitalocean_domain) do
-    self[:private_domain]
-  end
-
 end

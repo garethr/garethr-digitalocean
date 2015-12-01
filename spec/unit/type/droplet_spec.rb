@@ -6,12 +6,8 @@ describe droplet do
     [
       :name,
       :provider,
-      :size,
       :user_data,
       :ssh_keys,
-      :backups,
-      :ipv6,
-      :private_networking
     ]
   end
 
@@ -20,6 +16,10 @@ describe droplet do
       :ensure,
       :image,
       :region,
+      :size,
+      :backups,
+      :ipv6,
+      :private_networking
     ]
   end
 
