@@ -22,7 +22,7 @@ Puppet::Type.type(:digitalocean_domain).provide(:v2) do
 
   def self.prefetch(resources)
     instances.each do |prov|
-      if resource = resources[prov.name]
+      if resource = resources[prov.name] # rubocop:disable Lint/AssignmentInCondition
         resource.provider = prov
       end
     end
@@ -42,7 +42,7 @@ Puppet::Type.type(:digitalocean_domain).provide(:v2) do
     @property_hash[:ensure] == :present
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     response = @client.domain.create(
       name: name,
       ip_address: '127.0.0.1',
@@ -63,5 +63,4 @@ Puppet::Type.type(:digitalocean_domain).provide(:v2) do
     fail('Failed to destroy domain') unless response.success?
     @property_hash[:ensure] = :absent
   end
-
 end

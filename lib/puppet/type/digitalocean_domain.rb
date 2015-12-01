@@ -24,5 +24,4 @@ Puppet::Type.newtype(:digitalocean_domain) do
       fail 'TTL is read-only'
     end
   end
-
 end

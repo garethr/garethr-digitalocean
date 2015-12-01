@@ -1,7 +1,6 @@
 droplet = Puppet::Type.type(:droplet)
 
 describe droplet do
-
   let :params do
     [
       :name,

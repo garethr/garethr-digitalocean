@@ -5,10 +5,14 @@ gem 'tugboat'
 
 group :test do
   gem 'rake'
-  gem 'puppet', ENV['PUPPET_VERSION'] || '~> 4.2.0'
+  gem 'puppet', ENV['PUPPET_GEM_VERSION'] || '~> 4.2.0'
   gem 'puppetlabs_spec_helper'
   gem 'rspec-puppet'
   gem 'webmock'
+  gem 'metadata-json-lint'
+  gem 'rubocop', require: false
+  gem 'simplecov'
+  gem 'simplecov-console'
 end
 
 group :development do
@@ -16,6 +20,5 @@ group :development do
   gem 'travis-lint'
   gem 'puppet-blacksmith'
   gem 'guard-rake'
-  gem 'rubocop', require: false
   gem 'pry'
 end

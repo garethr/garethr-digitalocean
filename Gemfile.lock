@@ -12,9 +12,11 @@ GEM
       faraday_middleware (~> 0.9)
       hashie (~> 3.2)
     coderay (1.1.0)
+    colorize (0.7.7)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
     ethon (0.8.0)
@@ -51,6 +53,7 @@ GEM
     hiera (3.0.5)
       json_pure
     highline (1.7.8)
+    hirb (0.7.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     json (1.8.3)
@@ -62,6 +65,9 @@ GEM
       rb-inotify (>= 0.9)
     lumberjack (1.0.9)
     metaclass (0.0.4)
+    metadata-json-lint (0.0.11)
+      json
+      spdx-licenses (~> 1.0)
     method_source (0.8.2)
     middleware (0.1.0)
     mime-types (2.99)
@@ -136,7 +142,18 @@ GEM
     ruby-progressbar (1.7.5)
     safe_yaml (1.0.4)
     shellany (0.0.1)
+    simplecov (0.11.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-console (0.2.0)
+      colorize
+      hirb
+      simplecov
+    simplecov-html (0.10.0)
     slop (3.6.0)
+    spdx-licenses (1.0.0)
+      json
     thor (0.18.1)
     tins (1.6.0)
     travis (1.8.0)
@@ -173,6 +190,7 @@ PLATFORMS
 DEPENDENCIES
   barge
   guard-rake
+  metadata-json-lint
   pry
   puppet (~> 4.2.0)
   puppet-blacksmith
@@ -180,6 +198,8 @@ DEPENDENCIES
   rake
   rspec-puppet
   rubocop
+  simplecov
+  simplecov-console
   travis
   travis-lint
   tugboat

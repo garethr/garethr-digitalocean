@@ -5,7 +5,6 @@ require 'retries'
 require 'puppet_x/garethr/digitalocean/prefetch_error'
 
 class StillRunningError < Exception
-
 end
 
 Puppet::Type.type(:droplet).provide(:v2) do
@@ -44,13 +43,13 @@ Puppet::Type.type(:droplet).provide(:v2) do
 
   def self.prefetch(resources)
     instances.each do |prov|
-      if resource = resources[prov.name]
+      if resource = resources[prov.name] # rubocop:disable Lint/AssignmentInCondition
         resource.provider = prov
       end
     end
   end
 
-  def self.droplet_to_hash(droplet)
+  def self.droplet_to_hash(droplet) # rubocop:disable Metrics/AbcSize
     config = {
       name: droplet.name,
       region: droplet.region.slug,
@@ -80,7 +79,7 @@ Puppet::Type.type(:droplet).provide(:v2) do
     @property_hash[:ensure] == :present
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     response = @client.droplet.create(
       name: name,
       region: resource[:region],
@@ -115,7 +114,7 @@ Puppet::Type.type(:droplet).provide(:v2) do
     end
   end
 
-  def size=(value)
+  def size=(value) # rubocop:disable Metrics/AbcSize
     unless droplet.region.sizes.include? value
       fail("Size was '#{value}' and must be one of #{droplet.region.sizes.join(', ')}")
     end
@@ -169,5 +168,4 @@ Puppet::Type.type(:droplet).provide(:v2) do
     def droplet
       _droplet_from_name(name)
     end
-
 end

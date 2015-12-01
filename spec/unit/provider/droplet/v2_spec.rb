@@ -5,7 +5,6 @@ provider_class = Puppet::Type.type(:droplet).provider(:v2)
 ENV['DIGITALOCEAN_ACCESS_TOKEN'] = 'random'
 
 describe provider_class do
-
   context 'with the minimum params' do
     before(:all) do
       @resource = Puppet::Type.type(:droplet).new(
@@ -37,7 +36,6 @@ describe provider_class do
           .to_return(body: '{"droplets": [ {"name": "jane"}]}')
         expect(@provider.exists?).to be false
       end
-
     end
 
     context 'create' do
@@ -57,7 +55,6 @@ describe provider_class do
         @provider.destroy
       end
     end
-
   end
 
   context 'with non-array ssh_keys' do
@@ -75,5 +72,4 @@ describe provider_class do
       @provider.create
     end
   end
-
 end
