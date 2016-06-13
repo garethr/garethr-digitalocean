@@ -6,7 +6,7 @@ describe droplet do
       :name,
       :provider,
       :user_data,
-      :ssh_keys,
+      :ssh_keys
     ]
   end
 

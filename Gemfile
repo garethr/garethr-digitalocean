@@ -10,7 +10,7 @@ group :test do
   gem 'rspec-puppet'
   gem 'webmock'
   gem 'metadata-json-lint'
-  gem 'rubocop', require: false
+  gem 'rubocop', '0.40.0', require: false
   gem 'simplecov'
   gem 'simplecov-console'
 end

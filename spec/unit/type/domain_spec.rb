@@ -3,13 +3,13 @@ droplet = Puppet::Type.type(:digitalocean_domain)
 describe droplet do
   let :params do
     [
-      :name,
+      :name
     ]
   end
 
   let :properties do
     [
-      :ensure,
+      :ensure
     ]
   end
 

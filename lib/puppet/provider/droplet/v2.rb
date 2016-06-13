@@ -60,7 +60,7 @@ Puppet::Type.type(:droplet).provide(:v2) do
       private_networking: droplet.features.include?('private_networking'),
       image_slug: droplet.image.slug,
       price_monthly: droplet['size'].price_monthly,
-      ensure: :present,
+      ensure: :present
     }
 
     private_addr = droplet.networks.v4.detect { |address| address.type == 'private' }
@@ -89,7 +89,8 @@ Puppet::Type.type(:droplet).provide(:v2) do
       ssh_keys: resource[:ssh_keys],
       backups: resource[:backups],
       ipv6: resource[:ipv6],
-      private_networking: resource[:private_networking])
+      private_networking: resource[:private_networking]
+    )
     if response.success?
       Puppet.info("Created new droplet called #{name}")
     else

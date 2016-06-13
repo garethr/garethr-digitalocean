@@ -33,7 +33,7 @@ Puppet::Type.type(:digitalocean_domain).provide(:v2) do
       name: domain.name,
       ttl: domain.ttl,
       zone_file: domain.zone_file,
-      ensure: :present,
+      ensure: :present
     }
   end
 
